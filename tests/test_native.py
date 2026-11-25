@@ -47,13 +47,13 @@ def test_kernel_reader(monkeypatch, cid, raw, expected):
         assert linux.read_setting(cid) == expected
 
 
-def fw():
+def firewall_rows():
     return [{"name": n, "enabled": "True", "inbound": "Block"} for n in reversed(PROFILES)]
 
 
 @pytest.mark.parametrize("bad", ["missing", "duplicate", "unexpected", "object", "boolean"])
 def test_firewall_requires_exact_profiles(bad):
-    rows = fw()
+    rows = firewall_rows()
     if bad == "missing":
         rows.pop()
     elif bad == "duplicate":
@@ -68,7 +68,7 @@ def test_firewall_requires_exact_profiles(bad):
 
 
 def test_disabled_profile_and_unresolved_action():
-    rows = fw()
+    rows = firewall_rows()
     rows[0].update(enabled="False", inbound="NotConfigured")
     assert windows.parse_response("WIN-FW-001", encode({"rows": rows}))["Public"] is False
     assert windows.parse_response("WIN-FW-002", encode({"rows": rows}))["Public"] == "NotConfigured"

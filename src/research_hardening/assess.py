@@ -7,7 +7,7 @@ from .policy import parse_policy
 from .snapshot import parse_snapshot
 
 
-def judge(check, value):
+def evaluate_setting(check, value):
     cid = check["id"]
     gaps, findings = [], []
     if cid == "WIN-FW-001":
@@ -91,7 +91,7 @@ def evaluate(policy, snapshot, snapshot_hash, evaluated, trust_local):
         obs = by_id.get(cid)
         status = obs["status"] if obs else "missing"
         value = obs["value"] if obs else None
-        gaps, findings = judge(check, value) if status == "observed" else ([status], [])
+        gaps, findings = evaluate_setting(check, value) if status == "observed" else ([status], [])
         gaps = reasons + gaps
         state = "inconclusive" if gaps else ("finding" if findings else "satisfied")
         rows.append(

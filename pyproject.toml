@@ -7,6 +7,8 @@ name = "research-workstation-hardening"
 version = "0.1.0"
 description = "Read-only, scoped configuration assessment for research workstations"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.11"
 dependencies = []
 

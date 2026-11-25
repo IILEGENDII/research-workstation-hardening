@@ -3,7 +3,7 @@ from pathlib import Path
 from .catalog import PROFILES
 from .formats import Invalid, decode, keys, require
 from .policy import drive
-from .snapshot import GAPS, validate_value
+from .snapshot import GAPS, observation, validate_value
 
 MODULES = {
     "firewall": "NetSecurity",
@@ -135,8 +135,6 @@ def parse_response(cid, raw, volume=None):
 
 
 def result(check, status, raw):
-    from .snapshot import observation
-
     cid = check["id"]
     if status in GAPS:
         return observation(cid, status)
