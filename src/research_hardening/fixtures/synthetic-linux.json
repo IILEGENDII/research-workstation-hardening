@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "catalog_version": 1,
+  "tool": "research-hardening",
+  "tool_version": "0.1.0",
+  "operation": "collect",
+  "subject": "fixture-main",
+  "scope": "linux-visible",
+  "environment": "linux-visible",
+  "collection": "synthetic_fixture",
+  "observed_at": "2020-01-01T12:00:00Z",
+  "started_at": "2020-01-01T12:00:00Z",
+  "ended_at": "2020-01-01T12:00:00Z",
+  "policy_sha256": "39d03076c14de533b5227349c5c3b62663abb713c1fbe1a6a273b90a1d5d7584",
+  "policy_digest": "ea04b0a9dc286597dc330cca577f308c9c0660faa5aec84a690ccd54f209542d",
+  "observations": [
+    {
+      "check_id": "LIN-ASLR-001",
+      "source": "linux.randomize_va_space.v1",
+      "status": "observed",
+      "reason": null,
+      "value": 2
+    },
+    {
+      "check_id": "LIN-KPTR-001",
+      "source": "linux.kptr_restrict.v1",
+      "status": "observed",
+      "reason": null,
+      "value": 2
+    },
+    {
+      "check_id": "LIN-DMESG-001",
+      "source": "linux.dmesg_restrict.v1",
+      "status": "observed",
+      "reason": null,
+      "value": 1
+    },
+    {
+      "check_id": "LIN-DATA-001",
+      "source": "linux.directory-mode.v1",
+      "status": "observed",
+      "reason": null,
+      "value": {
+        "directory_subject": "test-data",
+        "directory": true,
+        "owned": true,
+        "mode": 448
+      }
+    }
+  ],
+  "issues": [],
+  "completed": true,
+  "status": "complete"
+}

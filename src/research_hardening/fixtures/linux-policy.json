@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "catalog_version": 1,
+  "policy_id": "linux-research",
+  "profile": "synthetic",
+  "scope": "linux-visible",
+  "max_age_hours": 24,
+  "checks": [
+    {
+      "id": "LIN-ASLR-001",
+      "required": true
+    },
+    {
+      "id": "LIN-KPTR-001",
+      "required": true,
+      "minimum": 1
+    },
+    {
+      "id": "LIN-DMESG-001",
+      "required": false
+    },
+    {
+      "id": "LIN-DATA-001",
+      "required": true,
+      "directory_subject": "test-data",
+      "private": true
+    }
+  ]
+}

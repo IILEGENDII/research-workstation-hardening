@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "catalog_version": 1,
+  "tool": "research-hardening",
+  "tool_version": "0.1.0",
+  "operation": "collect",
+  "subject": "fixture-main",
+  "scope": "windows-native",
+  "environment": "windows-native",
+  "collection": "synthetic_fixture",
+  "observed_at": "2020-01-01T12:00:00Z",
+  "started_at": "2020-01-01T12:00:00Z",
+  "ended_at": "2020-01-01T12:00:00Z",
+  "policy_sha256": "6e71a17759ea093d7f172f3280fe0ab379cdcbcf1c36598ca30323965797bcde",
+  "policy_digest": "cc0a53043dad1ad27d6b0d05410afd17c1d650fc893ad1f58af4aedadd56e673",
+  "observations": [
+    {
+      "check_id": "WIN-FW-001",
+      "source": "windows.active-firewall-profile.v1",
+      "status": "observed",
+      "reason": null,
+      "value": {
+        "Domain": true,
+        "Private": true,
+        "Public": true
+      }
+    },
+    {
+      "check_id": "WIN-FW-002",
+      "source": "windows.active-firewall-profile.v1",
+      "status": "observed",
+      "reason": null,
+      "value": {
+        "Domain": "Block",
+        "Private": "Block",
+        "Public": "Block"
+      }
+    },
+    {
+      "check_id": "WIN-AV-001",
+      "source": "windows.defender-status.v1",
+      "status": "observed",
+      "reason": null,
+      "value": {
+        "service": true,
+        "antivirus": true,
+        "realtime": true,
+        "mode": "Normal"
+      }
+    },
+    {
+      "check_id": "WIN-AV-002",
+      "source": "windows.defender-status.v1",
+      "status": "observed",
+      "reason": null,
+      "value": 2
+    },
+    {
+      "check_id": "WIN-DISK-001",
+      "source": "windows.bitlocker-volume.v1",
+      "status": "observed",
+      "reason": null,
+      "value": {
+        "volume": "C:",
+        "state": "FullyEncrypted",
+        "percent": 100,
+        "protection": "On"
+      }
+    },
+    {
+      "check_id": "WIN-BOOT-001",
+      "source": "windows.secure-boot.v1",
+      "status": "observed",
+      "reason": null,
+      "value": true
+    }
+  ],
+  "issues": [],
+  "completed": true,
+  "status": "complete"
+}

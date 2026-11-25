@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "catalog_version": 1,
+  "policy_id": "windows-research",
+  "profile": "synthetic",
+  "scope": "windows-native",
+  "max_age_hours": 24,
+  "checks": [
+    {
+      "id": "WIN-FW-001",
+      "required": true
+    },
+    {
+      "id": "WIN-FW-002",
+      "required": true
+    },
+    {
+      "id": "WIN-AV-001",
+      "required": true
+    },
+    {
+      "id": "WIN-AV-002",
+      "required": true,
+      "max_age_days": 7
+    },
+    {
+      "id": "WIN-DISK-001",
+      "required": true,
+      "volume": "C:"
+    },
+    {
+      "id": "WIN-BOOT-001",
+      "required": false
+    }
+  ]
+}

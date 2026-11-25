@@ -1,0 +1,1 @@
+Use synthetic data for development and CI. Keep live observations explicitly opt-in, read-only and local. Preserve uncertainty, scope and adverse evidence. Use direct control flow and explain unusual trust or platform constraints. Run tests after each change.

@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "research-workstation-hardening"
+version = "0.1.0"
+description = "Read-only, scoped configuration assessment for research workstations"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "ruff>=0.11,<1", "build>=1,<2"]
+
+[project.scripts]
+research-hardening = "research_hardening.cli:main"
+
+[tool.setuptools.package-data]
+research_hardening = ["fixtures/*.json"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
