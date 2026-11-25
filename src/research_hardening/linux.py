@@ -15,8 +15,10 @@ NODES = {
 
 def read_setting(cid):
     require(cid in NODES)
+    raw = bytearray()
     with NODES[cid].open("rb") as stream:
-        raw = stream.read(65)
+        while len(raw) < 65 and (chunk := stream.read(65 - len(raw))):
+            raw.extend(chunk)
     require(len(raw) <= 64 and raw.strip() in (b"0", b"1", b"2"))
     value = int(raw)
     validate_value(cid, value)

@@ -29,7 +29,22 @@ def local_path(value):
             ),
             "unsafe_path",
         )
-    return Path(text).absolute()
+    path = Path(text).absolute()
+    if os.name == "nt":
+        import ctypes
+
+        require(
+            not text.startswith("/") and bool(re.fullmatch("[A-Za-z]:", path.drive)), "unsafe_path"
+        )
+        require(
+            ctypes.windll.kernel32.GetDriveTypeW(str(path.anchor)) in (2, 3, 6), "nonlocal_drive"
+        )
+    else:
+        require(
+            len(path.parts) < 2 or path.parts[1] not in ("net", "afs", "mnt", "media", "Volumes"),
+            "nonlocal_path",
+        )
+    return path
 
 
 def plain(info):

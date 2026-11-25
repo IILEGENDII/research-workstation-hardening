@@ -92,5 +92,14 @@ def new_workspace(value):
     path = selected_path(value)
     private_directory(path.parent)
     outside_repository(path.parent)
+    for parent in path.parents:
+        require(
+            parent.name.lower() not in ("backup", "backups", "evidence", "assessments"),
+            "protected_directory",
+        )
+        require(
+            not all(os.path.lexists(parent / name) for name in ("config", "keys", "snapshots")),
+            "backup_repository",
+        )
     path.mkdir(mode=0o700)
     return path

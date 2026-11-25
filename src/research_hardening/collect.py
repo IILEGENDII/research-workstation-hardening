@@ -1,5 +1,6 @@
 import time
 from datetime import UTC, datetime
+from pathlib import Path
 
 from . import __version__, windows
 from .environment import local_scope
@@ -18,10 +19,8 @@ def collect(policy, subject, directory=None, *, local=False, confirm_owner_contr
     needs_directory = any(c["id"] == "LIN-DATA-001" for c in checks)
     require(needs_directory == (directory is not None), "directory_selection")
     if directory is not None:
-        require(local_path(directory).is_absolute())
-        from pathlib import Path
-
         require(Path(directory).is_absolute(), "absolute_directory_required")
+        directory = local_path(directory)
     started = datetime.now(UTC)
     deadline = time.monotonic() + 58
     scope = local_scope()
