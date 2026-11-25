@@ -6,8 +6,11 @@ from . import __version__
 from .assess import assess
 from .catalog import CONTROLS
 from .collect import collect
-from .formats import POLICY_LIMIT, Invalid, encode, require
+from .compare import compare_reports
+from .demo import demo
+from .formats import POLICY_LIMIT, Invalid, require
 from .policy import parse_policy
+from .render import render
 from .storage import output_path, read_file, write_new
 
 
@@ -37,22 +40,14 @@ def parser():
     assess_cmd.add_argument("--trust-local-file", action="store_true")
     assess_cmd.add_argument("--output")
     assess_cmd.add_argument("--format", choices=("json", "text"), default="json")
+    demo_cmd = subs.add_parser("demo")
+    demo_cmd.add_argument("--workspace", required=True)
+    compare_cmd = subs.add_parser("compare")
+    compare_cmd.add_argument("--before", required=True)
+    compare_cmd.add_argument("--after", required=True)
+    compare_cmd.add_argument("--output")
+    compare_cmd.add_argument("--format", choices=("json", "text"), default="json")
     return p
-
-
-def render(doc, fmt):
-    if fmt == "json":
-        return encode(doc)
-    lines = [
-        f"{doc['operation']}  {doc['status']}  {doc['subject']}  {doc['scope']}  {doc['assurance']}"
-    ]
-    for row in doc["checks"]:
-        group = "required" if row["required"] else "optional"
-        reasons = ", ".join(row["reason_codes"] + row["finding_codes"])
-        lines.append(f"{row['check_id']} ({group})  {row['state']}  {reasons}")
-        if reasons:
-            lines.append("  " + row["guidance"])
-    return ("\n".join(lines) + "\n").encode()
 
 
 def run(args):
@@ -69,6 +64,11 @@ def run(args):
             "catalog_version": 1,
             "controls": rows,
         }, 0
+    if args.verb == "demo":
+        return demo(args.workspace), 0
+    if args.verb == "compare":
+        doc = compare_reports(read_file(args.before), read_file(args.after))
+        return doc, doc["exit_code"]
     if args.verb == "collect":
         require(args.local and args.confirm_owner_controlled, "authorization_required")
         output_path(args.output, ".json")
